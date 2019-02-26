@@ -16,6 +16,7 @@ import com.zhangqie.wanandroid.ui.fragment.HomeFragment
 import com.zhangqie.wanandroid.ui.fragment.ModularFragment
 import com.zhangqie.wanandroid.ui.fragment.NavigationFragment
 import com.zhangqie.wanandroid.ui.fragment.ProjectFragment
+import com.zhangqie.wanandroid.ui.user.AboutActivity
 import com.zhangqie.wanandroid.ui.user.login.LoginActivity
 import com.zhangqie.wanandroid.widget.BottomNavigationViewHelper
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -170,7 +171,7 @@ class MainFragment : BaseActivity(){
     private val onDrawerNavigationItemSelectedListener =
             NavigationView.OnNavigationItemSelectedListener { item ->
                 when (item.itemId) {
-                    R.id.nav_collect -> {
+                    R.id.nav_camera -> {
                         if (UtilFileDB.ISLOGIN()) {
                            /* Intent(this@MainFragment, CommonActivity::class.java).run {
                                 putExtra(Constant.TYPE_KEY, Constant.Type.COLLECT_TYPE_KEY)
@@ -192,32 +193,16 @@ class MainFragment : BaseActivity(){
                         // drawer_layout.closeDrawer(GravityCompat.START)
                     }
                     R.id.nav_about_us -> {
-                       /* Intent(this@MainFragment, CommonActivity::class.java).run {
-                            putExtra(Constant.TYPE_KEY, Constant.Type.ABOUT_US_TYPE_KEY)
+                       Intent(this@MainFragment, AboutActivity::class.java).run {
                             startActivity(this)
-                        }*/
-                        // drawer_layout.closeDrawer(GravityCompat.START)
+                        }
+
                     }
                     R.id.nav_logout -> {
                         UtilFileDB.DELETESHAREDDATA("wanusername")
                         // drawer_layout.closeDrawer(GravityCompat.START)
                     }
-                    R.id.nav_night_mode -> {
 
-                    }
-                    R.id.nav_todo->{
-                        /*if (isLogin) {
-                            Intent(this@MainFragment, TodoActivity::class.java).run {
-                                startActivity(this)
-                            }
-                        } else {
-                            showToast(resources.getString(R.string.login_tint))
-                            Intent(this@MainFragment, LoginActivity::class.java).run {
-                                startActivity(this)
-                            }
-                        }*/
-                        // drawer_layout.closeDrawer(GravityCompat.START)
-                    }
                 }
                 true
             }

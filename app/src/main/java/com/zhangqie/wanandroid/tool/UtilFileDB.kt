@@ -1,6 +1,9 @@
 package com.zhangqie.wanandroid.tool
 
 import com.zhangqie.wanandroid.base.BaseApplication
+import android.app.Activity
+
+
 
 /**
  * Created by zhangqie on 2016/6/5 0005
@@ -88,6 +91,23 @@ object UtilFileDB {
 
     fun currentTimeLongMillis(time: Long?): Long {
         return (System.currentTimeMillis() - time!!) / 1000
+    }
+
+
+    /****
+     * 获取版本号
+     * @param activity
+     * @return
+     */
+    fun getVersion(activity: Activity): String {
+        try {
+            val manager = activity.packageManager
+            val info = manager.getPackageInfo(activity.packageName, 0)
+            return "V " + info.versionName+"."+info.versionCode
+        } catch (e: Exception) {
+            return "V 1.0.0"
+        }
+
     }
 
 
