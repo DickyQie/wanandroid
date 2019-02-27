@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.login_activity.*
 
 /**
  * Created by zhangqie on 2019/2/22
- * Describe:
+ * Describe:登录
  */
 class LoginActivity : BaseMvpActivity<IView<Any>, LoginPresenter>(), IView<Any>, ProgressCancelListener,View.OnClickListener{
 
@@ -111,7 +111,6 @@ class LoginActivity : BaseMvpActivity<IView<Any>, LoginPresenter>(), IView<Any>,
         var valid = true
         val username: String = et_username.text.toString()
         val password: String = et_password.text.toString()
-
         if (username.isEmpty()) {
             et_username.error = getString(R.string.username_not_empty)
             valid = false

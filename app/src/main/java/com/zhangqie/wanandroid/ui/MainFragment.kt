@@ -5,7 +5,6 @@ import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.NavigationView
 import android.support.v4.app.FragmentManager
 import android.support.v4.view.GravityCompat
-import android.support.v7.app.AppCompatDelegate
 import android.view.KeyEvent
 import android.widget.TextView
 import com.gyf.barlibrary.ImmersionBar
@@ -17,8 +16,10 @@ import com.zhangqie.wanandroid.ui.fragment.ModularFragment
 import com.zhangqie.wanandroid.ui.fragment.NavigationFragment
 import com.zhangqie.wanandroid.ui.fragment.ProjectFragment
 import com.zhangqie.wanandroid.ui.user.AboutActivity
+import com.zhangqie.wanandroid.ui.user.MyContentActivity
 import com.zhangqie.wanandroid.ui.user.login.LoginActivity
 import com.zhangqie.wanandroid.widget.BottomNavigationViewHelper
+import com.zhangqie.wanandroid.widget.DialogHelper
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.main_fragment.*
 
@@ -26,14 +27,14 @@ import kotlinx.android.synthetic.main.main_fragment.*
  * Created by zhangqie on 2019/2/18
  * Describe:
  */
-class MainFragment : BaseActivity(){
+class MainFragment : BaseActivity() {
 
     var mExitTime: Long = 0
     internal val INTERVAL = 2000
 
-    var mFragmentManager : FragmentManager ? = null
+    var mFragmentManager: FragmentManager? = null
 
-    var homeFragment: HomeFragment ? = null
+    var homeFragment: HomeFragment? = null
     var modularFragment: ModularFragment? = null
     var navigationFragment: NavigationFragment? = null
     var projectFragment: ProjectFragment? = null
@@ -72,7 +73,7 @@ class MainFragment : BaseActivity(){
             setOnClickListener({
                 if (UtilFileDB.ISLOGIN()) {
                     Intent(this@MainFragment, LoginActivity::class.java).run {
-                        openForResyltActivity(this,1)
+                        openForResyltActivity(this, 1)
                     }
                 } else {
 
@@ -158,11 +159,10 @@ class MainFragment : BaseActivity(){
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 1 && resultCode == 2){
+        if (requestCode == 1 && resultCode == 2) {
             nav_username.text = UtilFileDB.LOGINNAME()
         }
     }
-
 
 
     /**
@@ -173,41 +173,48 @@ class MainFragment : BaseActivity(){
                 when (item.itemId) {
                     R.id.nav_camera -> {
                         if (UtilFileDB.ISLOGIN()) {
-                           /* Intent(this@MainFragment, CommonActivity::class.java).run {
-                                putExtra(Constant.TYPE_KEY, Constant.Type.COLLECT_TYPE_KEY)
-                                startActivity(this)
-                            }*/
-                        } else {
                             showToast(resources.getString(R.string.login_tint))
                             Intent(this@MainFragment, LoginActivity::class.java).run {
+                                openForResyltActivity(this, 1)
+                            }
+                        } else {
+                            Intent(this@MainFragment, MyContentActivity::class.java).run {
                                 startActivity(this)
                             }
                         }
                         // drawer_layout.closeDrawer(GravityCompat.START)
                     }
                     R.id.nav_setting -> {
-                     /*   Intent(this@MainFragment, SettingActivity::class.java).run {
-                            // putExtra(Constant.TYPE_KEY, Constant.Type.SETTING_TYPE_KEY)
-                            startActivity(this)
-                        }*/
+                        showToast("开发中......")
+                        /*   Intent(this@MainFragment, SettingActivity::class.java).run {
+                               // putExtra(Constant.TYPE_KEY, Constant.Type.SETTING_TYPE_KEY)
+                               startActivity(this)
+                           }*/
                         // drawer_layout.closeDrawer(GravityCompat.START)
                     }
                     R.id.nav_about_us -> {
-                       Intent(this@MainFragment, AboutActivity::class.java).run {
+                        Intent(this@MainFragment, AboutActivity::class.java).run {
                             startActivity(this)
                         }
 
                     }
                     R.id.nav_logout -> {
-                        UtilFileDB.DELETESHAREDDATA("wanusername")
+                        if (UtilFileDB.ISLOGIN()) {
+                            showToast(resources.getString(R.string.login_tint))
+                        } else {
+                            DialogHelper.getConfirmDialog(this, "是否退出当前用户") { dialog, which ->
+                                UtilFileDB.DELETESHAREDDATA("wanusername")
+                                nav_username.text = getString(R.string.login)
+                                showToast(R.string.logout_success)
+
+                            }.show()
+                        }
                         // drawer_layout.closeDrawer(GravityCompat.START)
                     }
 
                 }
                 true
             }
-
-
 
 
     override fun dispatchKeyEvent(event: KeyEvent?): Boolean {

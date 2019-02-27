@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.register_activity.*
 
 /**
  * Created by zhangqie on 2019/2/22
- * Describe:
+ * Describe: 注册
  */
 class RegisterActivity : BaseMvpActivity<IView<Any>,RegisterPresenter>(),IView<Any>,ProgressCancelListener{
 

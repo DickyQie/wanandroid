@@ -52,4 +52,8 @@ abstract class BaseActivity : AppCompatActivity() {
         Toast.makeText(this,message,Toast.LENGTH_LONG).show()
     }
 
+    protected fun showToast(message: Int){
+        Toast.makeText(this,message, Toast.LENGTH_LONG).show()
+    }
+
 }

@@ -15,21 +15,84 @@ def releaseTime() {
 }
 
 
-
 android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.zhangqie.wanandroid"
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        versionCode app_version_code
+        versionName app_version_name
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        flavorDimensions "versionCode"
     }
+
+    signingConfigs {
+
+        release {
+            //key别名
+            keyAlias 'wanandroid'
+            //key密码
+            keyPassword 'zhangqie'
+            //密钥文件路径
+            storeFile file("../wanandroid.jks")
+            //密钥文件密码
+            storePassword 'zhangqie'
+            lintOptions {
+                checkReleaseBuilds false
+                abortOnError false
+            }
+            applicationVariants.all {
+                variant ->
+                    variant.outputs.all {
+                        output ->
+                            def fileName = "wanandroid_${defaultConfig.versionName}_${variant.productFlavors[0].name}_${releaseTime()}.apk"
+                            outputFileName = new File(
+                                    "../../../apk",
+                                    fileName)
+                    }
+            }
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    /**多渠道打包*/
+
+    productFlavors {
+        vivo {
+            manifestPlaceholders = [CHANNEL_VALUE: "vivo"]
+        }
+        baidu {
+            manifestPlaceholders = [CHANNEL_VALUE: "baidu"]
+        }
+        xiaomi {
+            manifestPlaceholders = [CHANNEL_VALUE: "xiaomi"]
+        }
+        wandoujia {
+            manifestPlaceholders = [CHANNEL_VALUE: "wandoujia"]
+        }
+        oppo {
+            manifestPlaceholders = [CHANNEL_VALUE: "oppo"]
+        }
+        yingyongbao {
+            manifestPlaceholders = [CHANNEL_VALUE: "yingyongbao"]
+        }
+        huawei {
+            manifestPlaceholders = [CHANNEL_VALUE: "huawei"]
+        }
+        meizu {
+            manifestPlaceholders = [CHANNEL_VALUE: "meizu"]
         }
     }
 }
@@ -52,7 +115,6 @@ dependencies {
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
     implementation 'com.github.bumptech.glide:glide:3.7.0'
-
 
     implementation 'cn.bingoogolapple:bga-banner:2.2.4'
     implementation 'com.just.agentweb:agentweb:1.0.3'

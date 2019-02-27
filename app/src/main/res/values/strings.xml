@@ -25,6 +25,7 @@
     <string name="action_browser">用浏览器打开</string>
 
     <!-- Nav Action -->
+    <string name="nav_my_content">个人中心</string>
     <string name="nav_my_collect">收藏</string>
     <string name="nav_setting">设置</string>
     <string name="nav_about_us">关于我们</string>
