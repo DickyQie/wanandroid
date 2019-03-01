@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Handler
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import android.widget.Toast
 import com.gyf.barlibrary.ImmersionBar
 import com.zhangqie.wanandroid.R
 import com.zhangqie.wanandroid.base.BaseMvpFragment
@@ -23,11 +22,6 @@ import com.zhangqie.zqrefresh.layout.SmartRefreshLayout
 import com.zhangqie.zqrefresh.layout.constant.SpinnerStyle
 import com.zhangqie.zqrefresh.layout.header.ClassicsHeader
 import kotlinx.android.synthetic.main.home_fragment.*
-import java.util.HashMap
-import kotlin.collections.ArrayList
-import kotlin.collections.List
-import kotlin.collections.MutableMap
-import kotlin.collections.mutableListOf
 
 /**
  * Created by zhangqie on 2019/2/18
@@ -36,7 +30,6 @@ import kotlin.collections.mutableListOf
 class HomeFragment : BaseMvpFragment<IView<Any>, HomePresenter>(), IView<Any>, ProgressCancelListener {
 
     private var mProgressDialogHandler: ProgressDialogHandler? = null
-    private var map: MutableMap<String, Any>? = null
     private var page = 0
     private var handler: Handler? = null
 
@@ -101,11 +94,6 @@ class HomeFragment : BaseMvpFragment<IView<Any>, HomePresenter>(), IView<Any>, P
     }
 
     override fun initBeforeData() {
-        map = HashMap<String, Any>()
-        map!!.put("shopperId", 9356)
-        map!!.put("machineId", 5117)
-        map!!.put("orderType", 2)
-        map!!.put("orderId", 108)
 
         handler = Handler()
         //刷新数据

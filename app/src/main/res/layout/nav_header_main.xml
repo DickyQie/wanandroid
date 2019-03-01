@@ -9,10 +9,10 @@
 
     <com.zhangqie.wanandroid.widget.ZQRoundOvalImageView
         android:id="@+id/my_sign_sub_img"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:scaleType="fitXY"
-        android:src="@mipmap/ic_launcher"
+        android:src="@mipmap/ic_launcher_round"
         android:layout_marginTop="15dp"
         />
     <TextView

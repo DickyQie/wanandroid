@@ -12,12 +12,12 @@ import com.zhangqie.wanandroid.tool.NetUtils
  */
 class HomePresenter : BasePresenter<IView<Any>>(), ICallBack<Any> {
 
-    var homeModel: HomeModeln? = null
+    var homeModel: HomeModel? = null
     var iView: IView<Any>? = null
 
     fun getBannerHttp(context: Context) {
         iView = getView()
-        homeModel = HomeModeln(this)
+        homeModel = HomeModel(this)
         iView!!.onLoadContributorStart()
         if (NetUtils.isNetworkAvailable(context)) {
             homeModel!!.showRequestBanner()

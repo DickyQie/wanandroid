@@ -13,7 +13,7 @@ import io.reactivex.disposables.Disposable
  * Created by zhangqie on 2019/2/18
  * Describe:
  */
-class HomeModeln(orderICallBack: ICallBack<Any>) : BaseModel<ICallBack<Any>>(), IModelCallback {
+class HomeModel(orderICallBack: ICallBack<Any>) : BaseModel<ICallBack<Any>>(), IModelCallback {
 
     init {
         attachModel(orderICallBack)
